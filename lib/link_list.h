@@ -24,6 +24,8 @@ int create(struct LINK_LIST *, char *);
 int tail_create(struct LINK_LIST *, char *);
 int insert(struct LINK_LIST *, int, char *);
 int del(struct LINK_LIST *, int);
+int find(struct LINK_LIST *, char *);
+char *get_next(struct LINK_LIST *, char *);
 
 /* double linked list operations */
 struct DOUBLE_LINK_LIST *init_double_link_list();
@@ -35,5 +37,8 @@ int D_create(struct DOUBLE_LINK_LIST *, char *);
 int D_tail_create(struct DOUBLE_LINK_LIST *, char *);
 int D_insert(struct DOUBLE_LINK_LIST *, int, char *);
 int D_del(struct DOUBLE_LINK_LIST *, int );
+int D_find(struct DOUBLE_LINK_LIST *, char *);
+char *D_get_next(struct DOUBLE_LINK_LIST *, char *);
+char *D_get_pre(struct DOUBLE_LINK_LIST *, char *);
 
 #endif
