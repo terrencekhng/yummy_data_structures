@@ -83,6 +83,9 @@ int main() {
 	}
 	printf("\n");
 
+	printf("%d\n", find(test3, "have "));
+	printf("%s@@\n", get_next(test3, "dream."));
+
 	destroy_link_list(test2);
 	destroy_link_list(test3);
 
@@ -113,10 +116,22 @@ int main() {
 	}
 	printf("\n");
 
+	printf("before deletion: ");
 	for (i = 1; i <= D_get_length(test5); ++i) {
 		printf("%s", D_get_element(test5, i));
 	}
 	printf("\n");
+
+	D_del(test5, 2);
+
+	printf("after deletion: ");
+	for (i = 1; i <= D_get_length(test5); ++i) {
+		printf("%s", D_get_element(test5, i));
+	}
+	printf("\n");
+
+	printf("%d\n", D_find(test5, "Language"));
+	printf("%s@@%s\n", D_get_next(test5, "C "), D_get_pre(test5, "_INSERT_"));
 
 	D_destroy_link_list(test4);
 	D_destroy_link_list(test5);
