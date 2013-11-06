@@ -23,6 +23,8 @@ void destroy_link_list(struct LINK_LIST *link) {
 		temp = link;
 		link = link->next;
 		free(temp);
+		temp->next = NULL;
+		temp->string = NULL;
 	}
 }
 
@@ -150,12 +152,56 @@ int del(struct LINK_LIST *link, int pos) {
 			for (i = 1; i <= pos-1; ++i) {
 				link = link->next;
 			}
-			link->next = link->next->next;
-			free(link->next);
+			struct LINK_LIST *temp;
+			temp = init_link_list();
+			if (temp==NULL) {
+				return ERROR;
+			}
+			temp = link->next;
+			link->next = temp->next;
+			free(temp);
+			temp->next = NULL;
+			temp->string = NULL;
 		}
 	}
 
 	return OK;
+}
+
+int find(struct LINK_LIST *link, char *key) {
+	int pos;
+	pos = 0;
+
+	if (is_empty(link)==YES) {
+		return -1;
+	}
+	while(link!=NULL) {
+		if (link->string==key) {
+			return pos;
+		}
+		else {
+			pos += 1;
+			link = link->next;
+		}
+	}
+
+	return -1;
+}
+
+char *get_next(struct LINK_LIST *link, char *key) {
+	if (is_empty(link)==YES) {
+		return NULL;
+	}
+	while(link->next!=NULL) {
+		if (link->string==key) {
+			return link->next->string;
+		}
+		else {
+			link = link->next;
+		}
+	}
+
+	return NULL;
 }
 
 /* double linked list */
@@ -178,6 +224,9 @@ void D_destroy_link_list(struct DOUBLE_LINK_LIST *link) {
 		temp = link;
 		link = link->next;
 		free(temp);
+		temp->next = NULL;
+		temp->pre = NULL;
+		temp->string = NULL;
 	}
 }
 
@@ -292,4 +341,87 @@ int D_insert(struct DOUBLE_LINK_LIST *link, int pos, char *in) {
 	}
 
 	return OK;
+}
+
+int D_del(struct DOUBLE_LINK_LIST *link, int pos) {
+	int i;
+
+	if (D_is_empty(link)==YES) {
+		fprintf(stderr, "Double link list is empty!!!");
+		return ERROR;
+	}
+	else {
+		if (pos <=0 || pos-1 > D_get_length(link)) {
+			return ERROR;
+		}
+		for (i = 1; i <= pos-1; ++i) {
+			link = link->next;
+		}
+		struct DOUBLE_LINK_LIST *temp;
+		temp = init_double_link_list();
+		if (temp==NULL) {
+			return ERROR;
+		}
+		temp = link->next;
+		link->next = temp->next;
+		link->next->pre = link;
+		free(temp);
+		temp->next = NULL;
+		temp->pre = NULL;
+		temp->string = NULL;
+	}
+
+	return 0;
+}
+
+int D_find(struct DOUBLE_LINK_LIST *link, char *key) {
+	int pos;
+	pos = 0;
+	
+	if (D_is_empty(link)==YES) {
+		return -1;
+	}
+	while (link!=NULL) {
+		if (link->string==key) {
+			return pos;
+		}
+		else {
+			link = link->next;
+			pos += 1;
+		}
+	}
+
+	return -1;
+}
+
+char *D_get_next(struct DOUBLE_LINK_LIST *link, char *key) {
+	if (D_is_empty(link)==YES) {
+		return NULL;
+	}
+	while (link->next!=NULL) {
+		if (link->string==key) {
+			return link->next->string;
+		}
+		else {
+			link = link->next;
+		}
+	}
+
+	return NULL;
+}
+
+char *D_get_pre(struct DOUBLE_LINK_LIST *link, char *key) {
+	if (D_is_empty(link)==YES) {
+		return NULL;
+	}
+	while(link!=NULL) {
+		if (link->string==key) {
+			return link->pre->string;
+		}
+		else {
+			link = link->next;
+		}
+	}
+
+	return NULL;
 }
