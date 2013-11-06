@@ -88,21 +88,38 @@ int main() {
 
 	/* double linked list examples */
 	struct DOUBLE_LINK_LIST *test4;
+	struct DOUBLE_LINK_LIST *test5;
 
 	test4 = init_double_link_list();
+	test5 = init_double_link_list();
 
 	D_create(test4, "Viva ");
 	D_create(test4, "La ");
 	D_create(test4, "Vida");
 
+	D_tail_create(test5, "The ");
+	D_tail_create(test5, "C ");
+	D_tail_create(test5, "Programming ");
+	D_tail_create(test5, "Language");
+
+	D_insert(test4, 4, "_HALO_");
+	D_insert(test5, 1, "_INSERT_");
+
 	printf("#length: %d\n", D_get_length(test4));
+	printf("#length: %d\n", D_get_length(test5));
 
 	for (i = 1; i <= D_get_length(test4); ++i) {
 		printf("%s", D_get_element(test4, i));
 	}
 	printf("\n");
 
+	for (i = 1; i <= D_get_length(test5); ++i) {
+		printf("%s", D_get_element(test5, i));
+	}
+	printf("\n");
+
 	D_destroy_link_list(test4);
+	D_destroy_link_list(test5);
 
 	return 0;
 }
