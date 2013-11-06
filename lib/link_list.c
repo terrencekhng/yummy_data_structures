@@ -243,7 +243,53 @@ int D_create(struct DOUBLE_LINK_LIST *link, char *in) {
 	return OK;
 }
 
+int D_tail_create(struct DOUBLE_LINK_LIST *link, char *in) {
+	if (D_get_length(link)>=STRING_SIZE) {
+		fprintf(stderr, "Double link list is full!!!");
+		return ERROR;
+	}
+	else {
+		while(link->next!=NULL) {
+			link = link->next;
+		}
+		struct DOUBLE_LINK_LIST *new_node;
+		new_node = init_double_link_list();
+		if (new_node==NULL) {
+			return ERROR;
+		}
+		new_node->next = link->next;
+		new_node->pre = link;
+		link->next = new_node;
+		new_node->string = in;
+	}
+
+	return OK;
+}
+
 int D_insert(struct DOUBLE_LINK_LIST *link, int pos, char *in) {
+	int i;
+
+	if (D_get_length(link)>=STRING_SIZE) {
+		fprintf(stderr, "Double link list is full!!!");
+		return ERROR;
+	}
+	else {
+		for (i = 1; i <= pos-1; ++i) {
+			link = link->next;
+		}
+		struct DOUBLE_LINK_LIST *new_node;
+		new_node = init_double_link_list();
+		if (new_node==NULL) {
+			return ERROR;
+		}
+		new_node->next = link->next;
+		new_node->pre = link;
+		link->next = new_node;
+		if (new_node->next!=NULL) {
+			new_node->next->pre = new_node;
+		}
+		new_node->string = in;
+	}
 
 	return OK;
 }
