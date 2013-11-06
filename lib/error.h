@@ -6,6 +6,8 @@
 #define OVERFLOW -2
 #define YES 2
 #define NO -3
+#define FOUND 4
+#define NOT_FOUND -4
 
 
 #endif
