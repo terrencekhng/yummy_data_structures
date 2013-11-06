@@ -32,6 +32,7 @@ int D_is_empty(struct DOUBLE_LINK_LIST *);
 int D_get_length(struct DOUBLE_LINK_LIST *);
 char *D_get_element(struct DOUBLE_LINK_LIST *, int );
 int D_create(struct DOUBLE_LINK_LIST *, char *);
+int D_tail_create(struct DOUBLE_LINK_LIST *, char *);
 int D_insert(struct DOUBLE_LINK_LIST *, int, char *);
 int D_del(struct DOUBLE_LINK_LIST *, int );
 
