@@ -145,7 +145,10 @@ int main() {
 	CD_create(test6, "Google!");
 
 	printf("@length: %d\n", CD_get_length(test6));
-	printf("%s%s%s", test6->next->string, test6->next->next->string, test6->next->next->next->string, test6->next->next->next->next->next->string);
+	for (i = 1; i <= CD_get_length(test6); ++i) {
+		printf("%s", CD_get_element(test6, i));
+	}
+	printf("\n");
 
 	CD_destroy_link_list(test6);
 
