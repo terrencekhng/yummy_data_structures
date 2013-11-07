@@ -138,19 +138,39 @@ int main() {
 
 	/* cyclic double linked list examples */
 	struct DOUBLE_LINK_LIST *test6;
+	struct DOUBLE_LINK_LIST *test7;
+
 	test6 = init_cyclic_double_link_list();
+	test7 = init_cyclic_double_link_list();
 
 	CD_create(test6, "I ");
 	CD_create(test6, "love ");
 	CD_create(test6, "Google!");
 
+	CD_tail_create(test7, "Let's ");
+	CD_tail_create(test7, "fuck ");
+	CD_tail_create(test7, "the ");
+	CD_tail_create(test7, "world!");
+
+	CD_insert(test6, 1, " and Facebook!");
+	CD_insert(test7, CD_get_length(test7)+1, " yes, ");
+	CD_insert(test7, CD_get_length(test7)+1, "and you!");
+
 	printf("@length: %d\n", CD_get_length(test6));
+	printf("@length: %d\n", CD_get_length(test7));
+
 	for (i = 1; i <= CD_get_length(test6); ++i) {
 		printf("%s", CD_get_element(test6, i));
 	}
 	printf("\n");
 
+	for (i = 1; i <= CD_get_length(test7); ++i) {
+		printf("%s", CD_get_element(test7, i));
+	}
+	printf("\n");
+
 	CD_destroy_link_list(test6);
+	CD_destroy_link_list(test7);
 
 	return 0;
 }
