@@ -677,3 +677,61 @@ int CD_find(struct DOUBLE_LINK_LIST *link, char *key) {
 
 	return -1;
 }
+
+char *CD_get_next(struct DOUBLE_LINK_LIST *link, char *key) {
+	if (CD_is_empty(link)==YES) {
+		return NULL;
+	}
+	struct DOUBLE_LINK_LIST *head;
+	head = init_cyclic_double_link_list();
+	if (head==NULL) {
+		return NULL;
+	}
+	head = link;
+	link = link->next;
+
+	while (link!=head) {
+		if (link->string==key) {
+			if (link->next==head) {
+				return link->next->next->string;
+			}
+			else {
+				return link->next->string;
+			}
+		}
+		else {
+			link = link->next;
+		}
+	}
+
+	return NULL;
+}
+
+char *CD_get_pre(struct DOUBLE_LINK_LIST *link, char *key) {
+	if (CD_is_empty(link)==YES) {
+		return NULL;
+	}
+	struct DOUBLE_LINK_LIST *head;
+	head = init_cyclic_double_link_list();
+	if (head==NULL) {
+		return NULL;
+	}
+	head = link;
+	link = link->next;
+
+	while (link!=head) {
+		if (link->string==key) {
+			if (link->pre==head) {
+				return link->pre->pre->string;
+			}
+			else {
+				return link->pre->string;
+			}
+		}
+		else {
+			link = link->next;
+		}
+	}
+
+	return NULL;
+}
