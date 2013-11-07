@@ -12,7 +12,7 @@ struct DOUBLE_LINK_LIST {
 	char *string;
 	struct DOUBLE_LINK_LIST *pre;
 	struct DOUBLE_LINK_LIST *next;
-}double_link_list;
+}double_link_list, cyclic_singly_link_list, cyclic_double_link_list;
 
 /* single linked list operations */
 struct LINK_LIST *init_link_list();
@@ -40,5 +40,20 @@ int D_del(struct DOUBLE_LINK_LIST *, int );
 int D_find(struct DOUBLE_LINK_LIST *, char *);
 char *D_get_next(struct DOUBLE_LINK_LIST *, char *);
 char *D_get_pre(struct DOUBLE_LINK_LIST *, char *);
+
+/* cyclic double linked list */
+struct DOUBLE_LINK_LIST *init_cyclic_double_link_list();
+void CD_destroy_link_list(struct DOUBLE_LINK_LIST *);
+int CD_is_empty(struct DOUBLE_LINK_LIST *);
+int CD_get_length(struct DOUBLE_LINK_LIST *);
+char *CD_get_element(struct DOUBLE_LINK_LIST *, int );
+int CD_create(struct DOUBLE_LINK_LIST *, char *);
+int CD_tail_create(struct DOUBLE_LINK_LIST *, char *);
+int CD_insert(struct DOUBLE_LINK_LIST *, int , char *);
+int CD_del(struct DOUBLE_LINK_LIST *, int );
+int CD_find(struct DOUBLE_LINK_LIST *, char *);
+char *CD_get_next(struct DOUBLE_LINK_LIST *, char *);
+char *CD_get_pre(struct DOUBLE_LINK_LIST *, char *);
+
 
 #endif

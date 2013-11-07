@@ -219,7 +219,7 @@ struct DOUBLE_LINK_LIST *init_double_link_list() {
 }
 
 void D_destroy_link_list(struct DOUBLE_LINK_LIST *link) {
-	struct DOUBLE_LINK_LIST *temp = init_double_link_list();
+	struct DOUBLE_LINK_LIST *temp = init_double_link_list(); /* TODO */
 	while (link!=NULL) {
 		temp = link;
 		link = link->next;
@@ -425,3 +425,119 @@ char *D_get_pre(struct DOUBLE_LINK_LIST *link, char *key) {
 
 	return NULL;
 }
+
+/* cyclic double linked list */
+struct DOUBLE_LINK_LIST *init_cyclic_double_link_list() {
+	struct DOUBLE_LINK_LIST *new_link = malloc(sizeof(struct DOUBLE_LINK_LIST));
+	if (new_link==NULL) {
+		fprintf(stderr, "Insufficient memory!!!");
+		return NULL;
+	}
+	new_link->string = NULL;
+	new_link->next = new_link;
+	new_link->pre = new_link;
+
+	return new_link;
+}
+
+void CD_destroy_link_list(struct DOUBLE_LINK_LIST *link) {
+	struct DOUBLE_LINK_LIST *temp = init_cyclic_double_link_list();
+	//struct DOUBLE_LINK_LIST *temp1 = init_cyclic_double_link_list();
+	/*if (temp==NULL || temp1==NULL) {
+		return;
+	}
+	while(link->next!=link) {
+		link = link->next;
+	}
+	temp = link->next;
+	free(link);
+	link->next = NULL;
+	link->pre = NULL;
+	link->string = NULL;
+
+	while(temp!=NULL) {
+		temp1 = temp;
+		temp = temp->next;
+		free(temp1);
+		temp1->next = NULL;
+		temp1->pre = NULL;
+		temp1->string = NULL;
+	}*/
+
+struct DOUBLE_LINK_LIST *head = init_cyclic_double_link_list();
+	head = link;
+	link = link->next;
+	while(link!=head) {
+		temp = link;
+		link = link->next;
+		free(temp);
+		temp->next =NULL;
+		temp->pre = NULL;
+		temp->string = NULL;
+	}
+	free(head);
+	head->next = NULL;
+	head->pre = NULL;
+	head->string = NULL;
+
+}
+
+int CD_get_length(struct DOUBLE_LINK_LIST *link) {
+	int count;
+	count = 0;
+
+	struct DOUBLE_LINK_LIST *head = init_cyclic_double_link_list();
+	if (head==NULL) {
+		return -1;
+	}
+	head = link;
+
+	while (link->next!=head) {
+		count += 1;
+		link = link->next;
+	}
+
+	return count;
+}
+
+int CD_create(struct DOUBLE_LINK_LIST *link, char *in) {
+	
+	struct DOUBLE_LINK_LIST *new_node;
+	new_node = init_cyclic_double_link_list();
+	if (new_node==NULL) {
+		return ERROR;
+	}
+	new_node->pre = link;
+	new_node->next = link->next;
+	if (link->next==link) {
+		link->pre = new_node;
+	}
+	link->next = new_node;
+	new_node->string = in;
+
+	return 0;
+}
+
+int CD_tail_create(struct DOUBLE_LINK_LIST *link, char *in) {
+	struct DOUBLE_LINK_LIST *head = init_cyclic_double_link_list();
+	if (head==NULL) {
+		return ERROR;
+	}
+	head = link;
+
+	while (link->next!=head) {
+		link = link->next;
+	}
+	struct DOUBLE_LINK_LIST *new_node = init_cyclic_double_link_list();
+	if (new_node==NULL) {
+		return ERROR;
+	}
+	new_node->next = head;
+	link->next = new_node;
+	new_node->pre = link;
+	head->next = new_node;
+	new_node->string = in;
+
+	return OK;
+}
+
