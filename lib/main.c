@@ -136,5 +136,18 @@ int main() {
 	D_destroy_link_list(test4);
 	D_destroy_link_list(test5);
 
+	/* cyclic double linked list examples */
+	struct DOUBLE_LINK_LIST *test6;
+	test6 = init_cyclic_double_link_list();
+
+	CD_create(test6, "I ");
+	CD_create(test6, "love ");
+	CD_create(test6, "Google!");
+
+	printf("@length: %d\n", CD_get_length(test6));
+	printf("%s%s%s", test6->next->string, test6->next->next->string, test6->next->next->next->string, test6->next->next->next->next->next->string);
+
+	CD_destroy_link_list(test6);
+
 	return 0;
 }
