@@ -508,8 +508,7 @@ int CD_get_length(struct DOUBLE_LINK_LIST *link) {
 	return count;
 }
 
-int CD_create(struct DOUBLE_LINK_LIST *link, char *in) {
-	
+int CD_create(struct DOUBLE_LINK_LIST *link, char *in) {	
 	struct DOUBLE_LINK_LIST *new_node;
 	new_node = init_cyclic_double_link_list();
 	if (new_node==NULL) {
@@ -536,15 +535,58 @@ int CD_tail_create(struct DOUBLE_LINK_LIST *link, char *in) {
 	while (link->next!=head) {
 		link = link->next;
 	}
-	struct DOUBLE_LINK_LIST *new_node = init_cyclic_double_link_list();
+	struct DOUBLE_LINK_LIST *new_node;
+	new_node = init_cyclic_double_link_list();
 	if (new_node==NULL) {
 		return ERROR;
 	}
 	new_node->next = head;
 	link->next = new_node;
 	new_node->pre = link;
-	head->next = new_node;
+	head->pre = new_node;
 	new_node->string = in;
+
+	return OK;
+}
+
+int CD_insert(struct DOUBLE_LINK_LIST *link, int pos, char *in) {
+	int i;
+
+	struct DOUBLE_LINK_LIST *head = init_cyclic_double_link_list();
+	if (head==NULL) {
+		return ERROR;
+	}
+	if (CD_get_length(link)>=STRING_SIZE) {
+		fprintf(stderr, "Cyclic double link list is full!!!");
+		return ERROR;
+	}
+	if (pos<=0 || pos-1 > CD_get_length(link)) {
+		fprintf(stderr, "Invalid position!!!");
+		return ERROR;
+	}
+	else {
+		for (i = 1; i <= pos-1; ++i) {
+			link = link->next;
+		}
+		struct DOUBLE_LINK_LIST *new_node;
+		new_node = init_cyclic_double_link_list();
+		if (new_node==NULL) {
+			return ERROR;
+		}
+		if (link->next==head) {
+			new_node->next = head;
+			link->next = new_node;
+			new_node->pre = link;
+			head->pre = new_node;
+		}
+		else {
+			new_node->next = link->next;
+			new_node->pre = link;
+			link->next = new_node;
+			new_node->next->pre = link;
+		}
+		new_node->string = in;
+	}
 
 	return OK;
 }
