@@ -464,7 +464,7 @@ void CD_destroy_link_list(struct DOUBLE_LINK_LIST *link) {
 		temp1->string = NULL;
 	}*/
 
-struct DOUBLE_LINK_LIST *head = init_cyclic_double_link_list();
+	struct DOUBLE_LINK_LIST *head = init_cyclic_double_link_list();
 	head = link;
 	link = link->next;
 	while(link!=head) {
@@ -480,6 +480,14 @@ struct DOUBLE_LINK_LIST *head = init_cyclic_double_link_list();
 	head->pre = NULL;
 	head->string = NULL;
 
+}
+
+int CD_is_empty(struct DOUBLE_LINK_LIST *link) {
+	if (link->next==link && link->pre==link) {
+		return YES;
+	}
+
+	return NO;
 }
 
 int CD_get_length(struct DOUBLE_LINK_LIST *link) {
@@ -539,5 +547,24 @@ int CD_tail_create(struct DOUBLE_LINK_LIST *link, char *in) {
 	new_node->string = in;
 
 	return OK;
+}
+
+char *CD_get_element(struct DOUBLE_LINK_LIST *link, int pos) {
+	int i;
+
+	if (CD_is_empty(link)==YES) {
+		return NULL;
+	}
+	if (pos<=0 || pos-1 > CD_get_length(link)) {
+		fprintf(stderr, "Invalid position!!!");
+		return NULL;
+	}
+	else {
+		for (i = 1; i <= pos; ++i) {
+			link = link->next;
+		}
+	}
+
+	return link->string;
 }
 
