@@ -70,7 +70,7 @@ int main() {
 	}
 	printf("\n");
 
-	del(test2, 3);
+	del(test2, 6);
 
 	printf("after deletion: ");
 	for (i = 1; i <= get_length(test2); ++i) {
@@ -153,8 +153,10 @@ int main() {
 	CD_tail_create(test7, "world!");
 
 	CD_insert(test6, 1, " and Facebook!");
+
 	CD_insert(test7, CD_get_length(test7)+1, " yes, ");
-	CD_insert(test7, CD_get_length(test7)+1, "and you!");
+	CD_insert(test7, CD_get_length(test7)+1, "and ");
+	CD_insert(test7, CD_get_length(test7)+1, "you!");
 
 	printf("@length: %d\n", CD_get_length(test6));
 	printf("@length: %d\n", CD_get_length(test7));
@@ -164,10 +166,20 @@ int main() {
 	}
 	printf("\n");
 
+	printf("before deletion: ");
 	for (i = 1; i <= CD_get_length(test7); ++i) {
 		printf("%s", CD_get_element(test7, i));
 	}
 	printf("\n");
+
+	CD_del(test7, 7);
+
+	printf("after deletion: ");
+	for (i = 1; i <= CD_get_length(test7); ++i) {
+		printf("%s", CD_get_element(test7, i));
+	}
+	printf("\n");
+	printf("%s", CD_get_element(test7, 8));
 
 	CD_destroy_link_list(test6);
 	CD_destroy_link_list(test7);
