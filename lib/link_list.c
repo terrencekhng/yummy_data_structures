@@ -53,7 +53,7 @@ char *get_element(struct LINK_LIST *link, int pos) {
 	if (is_empty(link)==YES) {
 		return NULL;
 	}
-	if (pos <= 0 || pos-1 > get_length(link)) {
+	if (pos <= 0 || pos > get_length(link)) {
 		fprintf(stderr, "Invalid position!!!");
 		exit(1);
 	}
@@ -114,7 +114,7 @@ int insert(struct LINK_LIST *link, int pos, char *in) {
 		return ERROR;
 	}
 	else {
-		if (pos <= 0 || pos-1 > get_length(link)) {
+		if (pos <= 0 || pos > get_length(link)) {
 			fprintf(stderr, "Invalid position");
 			return ERROR;
 		}
@@ -144,7 +144,7 @@ int del(struct LINK_LIST *link, int pos) {
 		return ERROR;
 	}
 	else {
-		if (pos <= 0 || pos-1 > get_length(link))	 {
+		if (pos <= 0 || pos > get_length(link))	 {
 			fprintf(stderr, "Invalid position!!!");
 			return ERROR;
 		}
@@ -256,9 +256,9 @@ char *D_get_element(struct DOUBLE_LINK_LIST *link, int pos) {
 	if (D_is_empty(link)==YES) {
 		return NULL;
 	}
-	if (pos <= 0 || pos-1 > D_get_length(link)) {
+	if (pos <= 0 || pos > D_get_length(link)) {
 		fprintf(stderr, "Invalid position!!!");
-		exit(1);
+		return NULL;
 	}
 	else {
 		for (i = 0; i < pos; ++i) {
@@ -351,7 +351,7 @@ int D_del(struct DOUBLE_LINK_LIST *link, int pos) {
 		return ERROR;
 	}
 	else {
-		if (pos <=0 || pos-1 > D_get_length(link)) {
+		if (pos <=0 || pos > D_get_length(link)) {
 			return ERROR;
 		}
 		for (i = 1; i <= pos-1; ++i) {
@@ -597,7 +597,7 @@ char *CD_get_element(struct DOUBLE_LINK_LIST *link, int pos) {
 	if (CD_is_empty(link)==YES) {
 		return NULL;
 	}
-	if (pos<=0 || pos-1 > CD_get_length(link)) {
+	if (pos<=0 || pos > CD_get_length(link)) {
 		fprintf(stderr, "Invalid position!!!");
 		return NULL;
 	}
@@ -610,3 +610,44 @@ char *CD_get_element(struct DOUBLE_LINK_LIST *link, int pos) {
 	return link->string;
 }
 
+int CD_del(struct DOUBLE_LINK_LIST *link, int pos) {
+	int i;
+
+	struct DOUBLE_LINK_LIST *head;
+	struct DOUBLE_LINK_LIST *temp;
+	head = init_cyclic_double_link_list();
+	temp = init_cyclic_double_link_list();
+	if (head==NULL || temp==NULL) {
+		return ERROR;
+	}
+	head = link;
+
+	if (CD_is_empty(link)==YES) {
+		fprintf(stderr, "Cyclic double link list is empty!!!");
+		return ERROR;
+	}
+	if (pos<=0 || pos > CD_get_length(link)) {
+		fprintf(stderr, "Invalid position!!!");
+		return ERROR;
+	}
+	else {
+		for (i = 1; i <= pos-1; ++i) {
+			link = link->next;
+		}
+		temp = link->next;
+		if (temp->next==head) {
+			link->next = head;
+			head->pre = link;
+		}
+		else {
+			link->next = temp->next;
+			link->next->pre = link;
+		}
+		free(temp);
+		temp->next = NULL;
+		temp->pre = NULL;
+		temp->string = NULL;
+	}
+
+	return OK;
+}
