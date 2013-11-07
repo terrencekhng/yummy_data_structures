@@ -130,7 +130,7 @@ int main() {
 	}
 	printf("\n");
 
-	printf("%d\n", D_find(test5, "Language"));
+	printf("find 'Language': %d\n", D_find(test5, "Language"));
 	printf("%s@@%s\n", D_get_next(test5, "C "), D_get_pre(test5, "_INSERT_"));
 
 	D_destroy_link_list(test4);
@@ -179,7 +179,8 @@ int main() {
 		printf("%s", CD_get_element(test7, i));
 	}
 	printf("\n");
-	printf("%s", CD_get_element(test7, 8));
+
+	printf("find 'and ': %d\n", CD_find(test7, "and "));
 
 	CD_destroy_link_list(test6);
 	CD_destroy_link_list(test7);
