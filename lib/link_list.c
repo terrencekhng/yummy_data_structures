@@ -651,3 +651,29 @@ int CD_del(struct DOUBLE_LINK_LIST *link, int pos) {
 
 	return OK;
 }
+
+int CD_find(struct DOUBLE_LINK_LIST *link, char *key) {
+	int pos;
+	pos = 1;  /* we set pos is 1, because it skip the head node */
+
+	if (CD_is_empty(link)==YES) {
+		return -1;
+	}
+	struct DOUBLE_LINK_LIST *head;
+	head = init_cyclic_double_link_list();
+	if (head==NULL) {
+		return ERROR;
+	}
+	head = link;
+	link = link->next;
+
+	while(link!=head) {
+		if (link->string==key) {
+			return pos;
+		}
+		pos += 1;
+		link = link->next;
+	}
+
+	return -1;
+}
