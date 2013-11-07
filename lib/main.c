@@ -181,6 +181,7 @@ int main() {
 	printf("\n");
 
 	printf("find 'and ': %d\n", CD_find(test7, "and "));
+	printf("%s@@%s", CD_get_next(test7, "and "), CD_get_pre(test7, "Let's "));
 
 	CD_destroy_link_list(test6);
 	CD_destroy_link_list(test7);
