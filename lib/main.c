@@ -186,5 +186,35 @@ int main() {
 	CD_destroy_link_list(test6);
 	CD_destroy_link_list(test7);
 
+	/* cyclic singly linked list test examples */
+	struct LINK_LIST *test8;
+	struct LINK_LIST *test9;
+
+	test8 = init_cyclic_link_list();
+	test9 = init_cyclic_link_list();
+
+	CS_create(test8, "I ");
+	CS_create(test8, "love ");
+	CS_create(test8, "github!");
+
+	CS_tail_create(test9, "Good ");
+	CS_tail_create(test9, "Fellows");
+
+	printf("length: %d\n", CS_get_length(test8));
+	printf("length: %d\n", CS_get_length(test9));
+
+	for (i = 1; i <= CS_get_length(test8); ++i) {
+		printf("%s", CS_get_element(test8, i));
+	}
+	printf("\n");
+
+	for (i = 1; i <= CS_get_length(test9); ++i) {
+		printf("%s", CS_get_element(test9, i));
+	}
+	printf("\n");
+
+	CS_destroy_link_list(test8);
+	CS_destroy_link_list(test9);
+
 	return 0;
 }
