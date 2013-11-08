@@ -514,7 +514,11 @@ int CD_get_length(struct DOUBLE_LINK_LIST *link) {
 	return count;
 }
 
-int CD_create(struct DOUBLE_LINK_LIST *link, char *in) {	
+int CD_create(struct DOUBLE_LINK_LIST *link, char *in) {
+	if (CD_get_length(link)>=STRING_SIZE) {
+		fprintf(stderr, "Cyclic double linked list is full!!!");
+		return ERROR;
+	}
 	struct DOUBLE_LINK_LIST *new_node;
 	new_node = init_cyclic_double_link_list();
 	if (new_node==NULL) {
@@ -532,6 +536,10 @@ int CD_create(struct DOUBLE_LINK_LIST *link, char *in) {
 }
 
 int CD_tail_create(struct DOUBLE_LINK_LIST *link, char *in) {
+	if (CD_get_length(link)>=STRING_SIZE) {
+		fprintf(stderr, "Cyclic double linked list is full!!!");
+		return ERROR;
+	}
 	struct DOUBLE_LINK_LIST *head = init_cyclic_double_link_list();
 	if (head==NULL) {
 		return ERROR;
@@ -808,6 +816,10 @@ int CS_is_empty(struct LINK_LIST *link) {
 }
 
 int CS_tail_create(struct LINK_LIST *link, char *in) {
+	if (CS_get_length(link)>=STRING_SIZE) {
+		fprintf(stderr, "Cyclic singly linked list if full!!!");
+		return ERROR;
+	}
 	struct LINK_LIST *head;
 	head = init_cyclic_link_list();
 	if (head==NULL) {
@@ -829,3 +841,4 @@ int CS_tail_create(struct LINK_LIST *link, char *in) {
 
 	return OK;
 }
+
