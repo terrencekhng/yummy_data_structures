@@ -442,6 +442,9 @@ struct DOUBLE_LINK_LIST *init_cyclic_double_link_list() {
 
 void CD_destroy_link_list(struct DOUBLE_LINK_LIST *link) {
 	struct DOUBLE_LINK_LIST *temp = init_cyclic_double_link_list();
+	if (temp==NULL) {
+		return;
+	}
 	//struct DOUBLE_LINK_LIST *temp1 = init_cyclic_double_link_list();
 	/*if (temp==NULL || temp1==NULL) {
 		return;
@@ -465,6 +468,9 @@ void CD_destroy_link_list(struct DOUBLE_LINK_LIST *link) {
 	}*/
 
 	struct DOUBLE_LINK_LIST *head = init_cyclic_double_link_list();
+	if (head==NULL) {
+		return;
+	}
 	head = link;
 	link = link->next;
 	while(link!=head) {
@@ -734,4 +740,92 @@ char *CD_get_pre(struct DOUBLE_LINK_LIST *link, char *key) {
 	}
 
 	return NULL;
+}
+
+/* cyclic signly linked list */
+struct LINK_LIST *init_cyclic_link_list() {
+	struct LINK_LIST *new_link;
+	new_link = malloc(sizeof(struct LINK_LIST));
+	if (new_link==NULL) {
+		fprintf(stderr, "Insufficient memory!!!");
+		return NULL;
+	}
+	new_link->next = new_link;
+	new_link->string = NULL;
+
+	return new_link;
+}
+
+void CS_destroy_link_list(struct LINK_LIST *link) {
+	struct LINK_LIST *head;
+	struct LINK_LIST *temp;
+	head = init_cyclic_link_list();
+	temp = init_cyclic_link_list();
+
+	if (head==NULL || temp==NULL) {
+		return;
+	}
+	head = link;
+	link = link->next;
+	
+	while (link!=head) {
+		temp = link;
+		link = link->next;
+		free(temp);
+		temp->next = NULL;
+		temp->string = NULL;
+	}
+	free(head);
+	head->next = NULL;
+	head->string = NULL;
+}
+
+int CS_get_length(struct LINK_LIST *link) {
+	int count;
+	count = 0;
+
+	struct LINK_LIST *head;
+	head = init_cyclic_link_list();
+	if (head==NULL) {
+		return -1;
+	}
+	head = link;
+
+	while (link->next!=NULL) {
+		count += 1;
+		link = link->next;
+	}
+
+	return count;
+}
+
+int CS_is_empty(struct LINK_LIST *link) {
+	if (link->next==link) {
+		return YES;
+	}
+
+	return NO;
+}
+
+int CS_tail_create(struct LINK_LIST *link, char *in) {
+	struct LINK_LIST *head;
+	head = init_cyclic_link_list();
+	if (head==NULL) {
+		return ERROR;
+	}
+	head = link;
+
+	while(link->next!=head) {
+		link = link->next;
+	}
+	struct LINK_LIST *new_node;
+	new_node = init_cyclic_link_list();
+	if (new_node==NULL) {
+		return ERROR;
+	}
+	new_node->next = link->next;
+	link->next = new_node;
+	new_node->string = in;
+
+	return OK;
 }
