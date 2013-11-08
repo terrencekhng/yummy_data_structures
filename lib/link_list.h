@@ -59,7 +59,7 @@ char *CD_get_pre(struct DOUBLE_LINK_LIST *, char *);
 struct LINK_LIST *init_cyclic_link_list();
 void CS_destroy_link_list(struct LINK_LIST *);
 int CS_is_empty(struct LINK_LIST *);
-int CD_get_length(struct LINK_LIST *);
+int CS_get_length(struct LINK_LIST *);
 char *CS_get_element(struct LINK_LIST *, int );
 int CS_create(struct LINK_LIST *, char *);
 int CS_tail_create(struct LINK_LIST *, char *);
@@ -67,6 +67,6 @@ int CS_insert(struct LINK_LIST *, int , char *);
 int CS_del(struct LINK_LIST *, int , char *);
 int CS_find(struct LINK_LIST *, char *);
 char *CS_get_next(struct LINK_LIST *, char *);
-char *CS_get_pre (struct LINK_LIST *, char *);
+char *CS_get_pre(struct LINK_LIST *, char *);
 
 #endif
