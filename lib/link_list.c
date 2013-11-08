@@ -799,7 +799,7 @@ int CS_get_length(struct LINK_LIST *link) {
 	}
 	head = link;
 
-	while (link->next!=NULL) {
+	while (link->next!=head) {
 		count += 1;
 		link = link->next;
 	}
@@ -817,7 +817,7 @@ int CS_is_empty(struct LINK_LIST *link) {
 
 int CS_tail_create(struct LINK_LIST *link, char *in) {
 	if (CS_get_length(link)>=STRING_SIZE) {
-		fprintf(stderr, "Cyclic singly linked list if full!!!");
+		fprintf(stderr, "Cyclic singly linked list is full!!!");
 		return ERROR;
 	}
 	struct LINK_LIST *head;
@@ -842,3 +842,39 @@ int CS_tail_create(struct LINK_LIST *link, char *in) {
 	return OK;
 }
 
+int CS_create(struct LINK_LIST *link, char *in) {
+	if (CS_get_length(link)>=STRING_SIZE) {
+		fprintf(stderr, "Cyclic singly linked list is full!!!");
+		return ERROR;
+	}
+
+	struct LINK_LIST *new_node;
+	new_node = init_cyclic_link_list();
+	if (new_node==NULL) {
+		return ERROR;
+	}
+	new_node->next = link->next;
+	link->next = new_node;
+	new_node->string = in;
+
+	return OK;
+}
+
+char *CS_get_element(struct LINK_LIST *link, int pos) {
+	int i;
+
+	if (CS_is_empty(link)==YES) {
+		return NULL;
+	}
+	if (pos <= 0 || pos > CS_get_length(link)) {
+			fprintf(stderr, "Invalid position!!!");
+			return NULL;
+		}
+	else {
+		for (i = 1; i <= pos; ++i) {
+			link = link->next;
+		}
+	}
+
+	return link->string;
+}
