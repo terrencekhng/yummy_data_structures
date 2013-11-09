@@ -968,3 +968,30 @@ int CS_find(struct LINK_LIST *link, char *key) {
 	
 	return -1;
 }
+
+char *CS_get_next(struct LINK_LIST *link, char *key) {
+	struct LINK_LIST *head;
+	head = init_cyclic_link_list();
+	if (head==NULL) {
+		return NULL;
+	}
+	head = link;
+	link = link->next;
+
+	while (link!=head) {
+		if (link->string==key) {
+			if (link->next==head) {
+				return link->next->next->string;
+			}
+			else {
+				return link->next->string;
+			}
+		}
+		else {
+			link = link->next;
+		}
+	}
+
+	return NULL;
+}
+
