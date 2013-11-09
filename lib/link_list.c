@@ -944,4 +944,27 @@ char *CS_get_element(struct LINK_LIST *link, int pos) {
 	return link->string;
 }
 
+int CS_find(struct LINK_LIST *link, char *key) {
+	if (CS_is_empty(link)==YES) {
+		return -1;
+	}
+	struct LINK_LIST *head;
+	head = init_cyclic_link_list();
+	if (head==NULL) {
+		return -1;
+	}
+	int pos;
+	pos = 0;
 
+	while(link!=head) {
+		if (link->string==key) {
+			return pos;
+		}
+		else {
+			pos += 1;
+			link = link->next;
+		}
+	}
+	
+	return -1;
+}
