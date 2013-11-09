@@ -238,6 +238,24 @@ int main() {
 
 	test10 = C_init_queue();
 
+	C_enqueue(test10, "Someone ");
+	C_enqueue(test10, "like ");
+	C_enqueue(test10, "you!");
+
+	printf("length: %d\n", C_get_queue_length(test10));
+
+	/* TODO bug here */
+	for (i = 0; i < C_get_queue_length(test10); ++i) {
+		printf("%d: %s", i, C_dequeue(test10));
+	}
+	printf("\n");
+	/*printf("%s", C_dequeue(test10));
+	printf("\n%d\n", C_get_queue_length(test10));
+	printf("%s", C_dequeue(test10));
+	printf("\n%d\n", C_get_queue_length(test10));
+	printf("%s", C_dequeue(test10));
+	printf("\n%d\n", C_get_queue_length(test10));*/
+
 	C_destroy_queue(test10);
 
 	return 0;
