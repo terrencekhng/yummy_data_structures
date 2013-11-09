@@ -226,6 +226,7 @@ int main() {
 	printf("\n");
 
 	printf("%d\n", CS_find(test9, " & "));
+	printf("%s\n", CS_get_next(test9, " & "));
 
 	CS_destroy_link_list(test8);
 	CS_destroy_link_list(test9);
