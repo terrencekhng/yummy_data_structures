@@ -1,6 +1,7 @@
 #include"stack.h"
 #include"error.h"
 #include"link_list.h"
+#include"queue.h"
 
 int main() {
 
@@ -227,9 +228,17 @@ int main() {
 
 	printf("%d\n", CS_find(test9, " & "));
 	printf("%s\n", CS_get_next(test9, " & "));
+	printf("\n\n");
 
 	CS_destroy_link_list(test8);
 	CS_destroy_link_list(test9);
+
+	/* linked queue test examples */
+	struct COMMON_QUEUE *test10;
+
+	test10 = C_init_queue();
+
+	C_destroy_queue(test10);
 
 	return 0;
 }
