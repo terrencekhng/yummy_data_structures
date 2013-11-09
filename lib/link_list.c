@@ -861,6 +861,41 @@ int CS_create(struct LINK_LIST *link, char *in) {
 	return OK;
 }
 
+int CS_insert(struct LINK_LIST *link, int pos, char *in) {
+	if (CS_get_length(link)>=STRING_SIZE) {
+		fprintf(stderr, "Cyclic singly linked list is full!!!");
+		return ERROR;
+	}
+	if (pos <= 0 || pos-1 > CS_get_length(link)) {
+		fprintf(stderr, "Invalid position!!!");
+		return ERROR;
+	}
+	int i;
+
+	struct LINK_LIST *head;
+	struct LINK_LIST *new_node;
+	head = init_cyclic_link_list();
+	new_node = init_cyclic_link_list();
+	if (new_node==NULL || head==NULL) {
+		return ERROR;
+	}
+	head = link;
+
+	for (i = 1; i <= pos-1; ++i) {
+		link = link->next;
+	}
+	if (link->next==head) {
+		new_node->next = head;
+	}
+	else {
+		new_node->next = link->next;
+	}
+	link->next = new_node;
+	new_node->string = in;
+
+	return OK;
+}
+
 char *CS_get_element(struct LINK_LIST *link, int pos) {
 	int i;
 
