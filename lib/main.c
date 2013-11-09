@@ -211,6 +211,15 @@ int main() {
 	}
 	printf("\n");
 
+	printf("before deletion: ");
+	for (i = 1; i <= CS_get_length(test9); ++i) {
+		printf("%s", CS_get_element(test9, i));
+	}
+	printf("\n");
+
+	CS_del(test9, 4);
+
+	printf("after deletion: ");
 	for (i = 1; i <= CS_get_length(test9); ++i) {
 		printf("%s", CS_get_element(test9, i));
 	}
