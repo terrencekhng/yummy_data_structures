@@ -58,3 +58,22 @@ int C_get_queue_length(struct COMMON_QUEUE *q) {
 
 	return count;
 }
+
+int C_enqueue(struct COMMON_QUEUE *q, char *in) {
+	if (C_get_queue_length(q)>=QUEUE_MAX_SIZE) {
+		fprintf(stderr, "Linked queue is full!!!");
+		return ERROR;
+	}
+	struct QUEUE_NODE *new_node;
+	new_node = malloc(sizeof(struct QUEUE_NODE));
+	if (new_node==NULL) {
+		return ERROR;
+	}
+	new_node->next = q->q_node->next;
+	q->q_node->next = q->q_node;
+	new_node->string = in;
+
+	return OK;
+}
+
+
