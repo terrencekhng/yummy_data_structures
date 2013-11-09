@@ -21,8 +21,6 @@ struct COMMON_QUEUE *C_init_queue() {
 	head->string = NULL;
 
 	new_queue->q_node = head;
-	new_queue->top = -1;
-	new_queue->base = -1;
 
 	return new_queue;
 }
@@ -43,17 +41,22 @@ void C_destroy_queue(struct COMMON_QUEUE *q) {
 		temp->next = NULL;
 		temp->string = NULL;
 	}
-	q->top = -1;
-	q->base = -1;
 }
 
 int C_get_queue_length(struct COMMON_QUEUE *q) {
 	int count;
 	count = 0;
 
-	while (q->q_node->next!=NULL) {
+	struct QUEUE_NODE *temp;
+	temp = malloc(sizeof(struct QUEUE_NODE));
+	if (temp==NULL) {
+		return ERROR;
+	}
+	temp = q->q_node;
+
+	while (temp->next!=NULL) {
 		count += 1;
-		q->q_node = q->q_node->next;
+		temp = temp->next;
 	}
 
 	return count;
@@ -65,15 +68,46 @@ int C_enqueue(struct COMMON_QUEUE *q, char *in) {
 		return ERROR;
 	}
 	struct QUEUE_NODE *new_node;
+	struct QUEUE_NODE *temp;
 	new_node = malloc(sizeof(struct QUEUE_NODE));
-	if (new_node==NULL) {
+	temp = malloc(sizeof(struct QUEUE_NODE));
+	if (new_node==NULL || temp==NULL) {
 		return ERROR;
 	}
-	new_node->next = q->q_node->next;
-	q->q_node->next = q->q_node;
+	new_node->next = NULL;
+	new_node->string = NULL;
+
+	temp = q->q_node;
+
+	while (temp->next!=NULL) {
+		temp = temp->next;
+	}
+	new_node->next = temp->next;
+	temp->next = new_node;
 	new_node->string = in;
 
 	return OK;
 }
 
+char *C_dequeue(struct COMMON_QUEUE *q) {
+	if (C_get_queue_length(q)==0) {
+		fprintf(stderr, "Linked queue is empty!!!");
+		return NULL;
+	}
+	struct QUEUE_NODE *p;
+	p = malloc(sizeof(struct QUEUE_NODE));
+	if (p==NULL) {
+		return NULL;
+	}
+	p = q->q_node;
 
+	char *temp;
+	temp = p->next->string;
+	p = p->next;
+	q->q_node->next = p->next;
+	free(p);
+	p->next = NULL;
+	p->string = NULL;
+	
+	return temp;
+}
