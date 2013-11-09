@@ -566,12 +566,13 @@ int CD_tail_create(struct DOUBLE_LINK_LIST *link, char *in) {
 int CD_insert(struct DOUBLE_LINK_LIST *link, int pos, char *in) {
 	int i;
 
-	struct DOUBLE_LINK_LIST *head = init_cyclic_double_link_list();
-	if (head==NULL) {
-		return ERROR;
-	}
 	if (CD_get_length(link)>=STRING_SIZE) {
 		fprintf(stderr, "Cyclic double link list is full!!!");
+		return ERROR;
+	}
+	struct DOUBLE_LINK_LIST *head;
+	head = init_cyclic_double_link_list();
+	if (head==NULL) {
 		return ERROR;
 	}
 	if (pos<=0 || pos-1 > CD_get_length(link)) {
@@ -878,3 +879,5 @@ char *CS_get_element(struct LINK_LIST *link, int pos) {
 
 	return link->string;
 }
+
+
