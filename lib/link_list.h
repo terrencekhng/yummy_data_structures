@@ -67,6 +67,5 @@ int CS_insert(struct LINK_LIST *, int , char *);
 int CS_del(struct LINK_LIST *, int );
 int CS_find(struct LINK_LIST *, char *);
 char *CS_get_next(struct LINK_LIST *, char *);
-char *CS_get_pre(struct LINK_LIST *, char *);
 
 #endif
