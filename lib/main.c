@@ -200,6 +200,9 @@ int main() {
 	CS_tail_create(test9, "Good ");
 	CS_tail_create(test9, "Fellows");
 
+	CS_insert(test9, CS_get_length(test9)+1, " & ");
+	CS_insert(test9, CS_get_length(test9)+1, "Fargo");
+
 	printf("length: %d\n", CS_get_length(test8));
 	printf("length: %d\n", CS_get_length(test9));
 
