@@ -47,4 +47,14 @@ void C_destroy_queue(struct COMMON_QUEUE *q) {
 	q->base = -1;
 }
 
+int C_get_queue_length(struct COMMON_QUEUE *q) {
+	int count;
+	count = 0;
 
+	while (q->q_node->next!=NULL) {
+		count += 1;
+		q->q_node = q->q_node->next;
+	}
+
+	return count;
+}
