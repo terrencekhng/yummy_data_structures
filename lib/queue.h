@@ -10,8 +10,6 @@ struct QUEUE_NODE {
 
 struct COMMON_QUEUE {
 	struct QUEUE_NODE *q_node;
-	int top;
-	int base;
 }common_queue;
 
 struct COMMON_QUEUE *C_init_queue();
