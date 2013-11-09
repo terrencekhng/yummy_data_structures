@@ -64,7 +64,7 @@ char *CS_get_element(struct LINK_LIST *, int );
 int CS_create(struct LINK_LIST *, char *);
 int CS_tail_create(struct LINK_LIST *, char *);
 int CS_insert(struct LINK_LIST *, int , char *);
-int CS_del(struct LINK_LIST *, int , char *);
+int CS_del(struct LINK_LIST *, int );
 int CS_find(struct LINK_LIST *, char *);
 char *CS_get_next(struct LINK_LIST *, char *);
 char *CS_get_pre(struct LINK_LIST *, char *);
