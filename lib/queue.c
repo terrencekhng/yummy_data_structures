@@ -4,6 +4,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+/* linked-list queue operations */
 struct COMMON_QUEUE *C_init_queue() {
 	struct QUEUE_NODE *head;
 	head = malloc(sizeof(struct QUEUE_NODE));
@@ -111,3 +112,53 @@ char *C_dequeue(struct COMMON_QUEUE *q) {
 	
 	return temp;
 }
+
+/* cyclic queue operations */
+int CQ_init_queue(struct CYCLIC_QUEUE *q, int queue_size) {
+	char *new_string[queue_size];
+	int i;
+
+	for (i = 0; i < queue_size; ++i) {
+		new_string[i] = (char *)malloc(sizeof(char) * STRING_SIZE);
+		if (new_string[i]==NULL) {
+			return ERROR;
+		}
+		else {
+			q->string[i] = new_string[i];
+		}
+	}
+	q->size = queue_size;
+	q->top = -1;
+	q->base = -1;
+
+	return OK;
+}
+
+void CQ_destroy_queue(struct CYCLIC_QUEUE *q) {
+	int i;
+	
+	for (i = 0; i < q->size; ++i) {
+		free(q->string[i]);
+		q->string[i] = NULL;
+	}
+	q->size = 0;
+	q->top = q->base = -1;
+}
+
+int CQ_is_queue_empty(struct CYCLIC_QUEUE *q) {
+	if (q->size==0) {
+		return YES;
+	}
+
+	return NO;
+}
+
+int CQ_is_queue_full(struct CYCLIC_QUEUE *q) {
+	if (q->size>=QUEUE_MAX_SIZE) {
+		return YES;
+	}
+
+	return NO;
+}
+
+
