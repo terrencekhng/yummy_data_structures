@@ -1,5 +1,6 @@
 #include"error.h"
 #include"queue.h"
+#include"common.h"
 
 #include<stdio.h>
 #include<stdlib.h>
