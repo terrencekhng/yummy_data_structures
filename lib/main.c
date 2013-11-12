@@ -243,20 +243,36 @@ int main() {
 	C_enqueue(test10, "you!");
 
 	printf("length: %d\n", C_get_queue_length(test10));
+	int j;
 
-	/* TODO bug here */
-	for (i = 0; i < C_get_queue_length(test10); ++i) {
-		printf("%d: %s", i, C_dequeue(test10));
+	/* it prints the first two characters */
+	for (j = 0; j < C_get_queue_length(test10); j++) {
+		printf("[%d %s]", j, C_dequeue(test10));
 	}
 	printf("\n");
-	/*printf("%s", C_dequeue(test10));
-	printf("\n%d\n", C_get_queue_length(test10));
-	printf("%s", C_dequeue(test10));
-	printf("\n%d\n", C_get_queue_length(test10));
-	printf("%s", C_dequeue(test10));
-	printf("\n%d\n", C_get_queue_length(test10));*/
+
+	/* it prints all the characers */
+	C_dequeue(test10);
+	C_dequeue(test10);
+	C_dequeue(test10);
+	C_dequeue(test10);
+	printf("\n\n\n");
 
 	C_destroy_queue(test10);
+
+	/* cyclic queue test examples */
+	struct CYCLIC_QUEUE test11;
+
+	//CQ_init_queue(&test11, 5);
+	CQ_init_queue(&test11, 5);
+
+	CQ_enqueue(&test11, "Come ");
+	//CQ_enqueue(&test11, "fuck ");
+	//CQ_enqueue(&test11, "me!");
+	printf("\n\n\n");
+
+
+	CQ_destroy_queue(&test11);
 
 	return 0;
 }
