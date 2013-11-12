@@ -1,6 +1,7 @@
 #ifndef _STACK_H
 #define _STACK_H
 
+#include"common.h"
 
 struct COMMON_STACK {
 	char *string;
@@ -9,7 +10,7 @@ struct COMMON_STACK {
 }common_stack;
 
 struct STRING_STACK {
-	char *string[STACK_SIZE];
+	char *string[STRING_SIZE];
 	int size;
 	int top;
 }string_stack;
