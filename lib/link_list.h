@@ -1,8 +1,6 @@
 #ifndef _LINK_LIST_H
 #define _LINK_LIST_H
 
-#define STRING_SIZE 4096
-
 struct LINK_LIST {
 	char *string;
 	struct LINK_LIST *next;
