@@ -101,6 +101,8 @@ char *C_dequeue(struct COMMON_QUEUE *q) {
 	if (p==NULL) {
 		return NULL;
 	}
+	p->next = NULL;
+	p->string = NULL;
 	p = q->q_node;
 
 	char *temp;
@@ -115,26 +117,27 @@ char *C_dequeue(struct COMMON_QUEUE *q) {
 }
 
 /* cyclic queue operations */
-int CQ_init_queue(struct CYCLIC_QUEUE *q, int queue_size) {
+void CQ_init_queue(struct CYCLIC_QUEUE *new_queue, int queue_size) {
 	char *new_string[queue_size];
 	int i;
 
 	for (i = 0; i < queue_size; ++i) {
 		new_string[i] = (char *)malloc(sizeof(char) * STRING_SIZE);
 		if (new_string[i]==NULL) {
-			return ERROR;
+			fprintf(stderr, "Insufficient memory!!!");
+			return ;
 		}
 		else {
-			q->string[i] = new_string[i];
+			new_queue->string[i] = new_string[i];
 		}
 	}
-	q->size = queue_size;
-	q->top = -1;
-	q->base = -1;
+	new_queue->size = queue_size;
+	new_queue->top = 0;
+	new_queue->base = 0;
 
-	return OK;
 }
 
+/*TODO free() bugs here*/
 void CQ_destroy_queue(struct CYCLIC_QUEUE *q) {
 	int i;
 	
@@ -143,7 +146,7 @@ void CQ_destroy_queue(struct CYCLIC_QUEUE *q) {
 		q->string[i] = NULL;
 	}
 	q->size = 0;
-	q->top = q->base = -1;
+	q->top = q->base = 0;
 }
 
 int CQ_is_queue_empty(struct CYCLIC_QUEUE *q) {
@@ -155,11 +158,28 @@ int CQ_is_queue_empty(struct CYCLIC_QUEUE *q) {
 }
 
 int CQ_is_queue_full(struct CYCLIC_QUEUE *q) {
-	if (q->size>=QUEUE_MAX_SIZE) {
-		return YES;
-	}
 
 	return NO;
 }
 
+void CQ_enqueue(struct CYCLIC_QUEUE *q, char *in) {
+	/*if (CQ_is_queue_full(q)==YES) {
+		fprintf(stderr, "Cyclic queue is full!!!");
+		return;
+	}*/
+	q->string[q->top] = in;
+	q->top = (q->top + 1) % q->size;
 
+}
+
+char *CQ_dequeue(struct CYCLIC_QUEUE *q) {
+	if (CQ_is_queue_empty(q)==YES) {
+		fprintf(stderr, "Cyclic queue is empty!!!");
+		return NULL;
+	}
+	char *temp;
+	temp = q->string[q->base];
+	q->base = (q->base - 1) % q->size;
+
+	return temp;
+}
