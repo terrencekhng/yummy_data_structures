@@ -1,5 +1,6 @@
 #include"stack.h"
 #include"error.h"
+#include"common.h"
 
 #include<stdio.h>
 #include<stdlib.h>

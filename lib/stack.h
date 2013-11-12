@@ -1,8 +1,6 @@
 #ifndef _STACK_H
 #define _STACK_H
 
-#define STACK_SIZE 1024
-#define STRING_SIZE 4096
 
 struct COMMON_STACK {
 	char *string;
