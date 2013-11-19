@@ -945,6 +945,7 @@ char *CS_get_element(struct LINK_LIST *link, int pos) {
 	return link->string;
 }
 
+/* TODO bugs here */
 int CS_find(struct LINK_LIST *link, char *key) {
 	if (CS_is_empty(link)==YES) {
 		return -1;
@@ -954,6 +955,9 @@ int CS_find(struct LINK_LIST *link, char *key) {
 	if (head==NULL) {
 		return -1;
 	}
+	head = link;
+	link = link->next;
+
 	int pos;
 	pos = 0;
 
