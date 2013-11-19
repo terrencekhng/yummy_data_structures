@@ -60,7 +60,13 @@ int main() {
 		printf("is test1 empty? NO\n");
 	}
 
-	C_clear_queue(&test1);
+	/* put this in comment in case to make sure that the subsequent tests
+	 * work correctly.
+	 *
+		
+	 C_clear_queue(&test1);
+	 
+	 */
 
 	printf("linked-list queue \"test1\": length: %d\n", C_get_queue_length(&test1));
 	printf("%s", C_dequeue(&test1));
