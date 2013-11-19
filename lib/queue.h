@@ -36,8 +36,9 @@ struct CYCLIC_QUEUE {
 void C_init_queue(struct COMMON_QUEUE *);
 void C_destroy_queue(struct COMMON_QUEUE *);
 int C_enqueue(struct COMMON_QUEUE *, char *);
-char *C_dequeue(struct COMMON_QUEUE * );
-int C_get_queue_length(struct COMMON_QUEUE * );
+char *C_dequeue(struct COMMON_QUEUE *);
+int C_get_queue_length(struct COMMON_QUEUE *);
+int C_get_is_empty(struct COMMON_QUEUE *);
 
 /* cyclic queue */
 void CQ_init_queue(struct CYCLIC_QUEUE *, int );
