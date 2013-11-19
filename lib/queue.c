@@ -23,6 +23,14 @@ void C_destroy_queue(struct COMMON_QUEUE *q) {
 	}
 }
 
+int C_is_empty(struct COMMON_QUEUE *q) {
+	if (q->front->next==NULL) {
+		return YES;
+	}
+
+	return NO;
+}
+
 int C_get_queue_length(struct COMMON_QUEUE *q) {
 	int count = 0;
 
