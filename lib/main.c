@@ -233,7 +233,7 @@ int main() {
 	CS_destroy_link_list(test8);
 	CS_destroy_link_list(test9);
 
-	/* linked queue test examples */
+	/* linked queue test examples 
 	struct COMMON_QUEUE *test10;
 
 	test10 = C_init_queue();
@@ -245,13 +245,13 @@ int main() {
 	printf("length: %d\n", C_get_queue_length(test10));
 	int j;
 
-	/* it prints the first two characters */
+	 it prints the first two characters 
 	for (j = 0; j < C_get_queue_length(test10); j++) {
 		printf("[%d %s]", j, C_dequeue(test10));
 	}
 	printf("\n");
 
-	/* it prints all the characers */
+	 it prints all the characers 
 	C_dequeue(test10);
 	C_dequeue(test10);
 	C_dequeue(test10);
@@ -259,18 +259,34 @@ int main() {
 	printf("\n\n\n");
 
 	C_destroy_queue(test10);
+	*/
 
 	/* cyclic queue test examples */
 	struct CYCLIC_QUEUE test11;
 
-	//CQ_init_queue(&test11, 5);
 	CQ_init_queue(&test11, 5);
 
 	CQ_enqueue(&test11, "Come ");
-	//CQ_enqueue(&test11, "fuck ");
-	//CQ_enqueue(&test11, "me!");
+	CQ_enqueue(&test11, "fuck ");
+	CQ_enqueue(&test11, "me!");
+	CQ_enqueue(&test11, "and ");
 	printf("\n\n\n");
 
+	if (CQ_is_queue_full(&test11)==YES) {
+		printf("YES, it's full.\n");
+	}
+	else {
+		printf("NO, it's not full.\n");
+	}
+
+	printf("%d\n", CQ_is_queue_full(&test11));
+
+	printf("length: %d\n", CQ_get_queue_length(&test11));
+
+	for (i = 0; i < CQ_get_queue_length(&test11); ++i) {
+		printf("%s", CQ_dequeue(&test11));
+	}
+	printf("\n");
 
 	CQ_destroy_queue(&test11);
 
