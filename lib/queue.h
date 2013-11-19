@@ -3,6 +3,7 @@
 
 #define QUEUE_MAX_SIZE 4096
 
+/*
 struct QUEUE_NODE {
 	char *string;
 	struct QUEUE_NODE *next;
@@ -11,7 +12,19 @@ struct QUEUE_NODE {
 struct COMMON_QUEUE {
 	struct QUEUE_NODE *q_node;
 }common_queue;
+*/
 
+struct QUEUE_NODE {
+	char *string;
+	struct QUEUE_NODE *next;
+}quene_node;
+
+struct COMMON_QUEUE {
+	struct QUEUE_NODE	*front;
+	struct QUEUE_NODE *rear;
+}common_queue;
+
+/* circular queue */
 struct CYCLIC_QUEUE {
 	char *string[QUEUE_MAX_SIZE];
 	int size;
@@ -20,7 +33,7 @@ struct CYCLIC_QUEUE {
 }cyclic_queue;
 
 /* linked-list queue */
-struct COMMON_QUEUE *C_init_queue();
+void C_init_queue(struct COMMON_QUEUE *);
 void C_destroy_queue(struct COMMON_QUEUE *);
 int C_enqueue(struct COMMON_QUEUE *, char *);
 char *C_dequeue(struct COMMON_QUEUE * );
