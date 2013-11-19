@@ -41,10 +41,24 @@ int main() {
 
 	C_init_queue(&test1);
 
+	if (C_is_empty(&test1)==YES) {
+		printf("is test1 empty? YES\n");
+	}
+	else {
+		printf("is test1 empty? NO\n");
+	}
+
 	C_enqueue(&test1, "we ");
 	C_enqueue(&test1, "are ");
 	C_enqueue(&test1, "the ");
 	C_enqueue(&test1, "world!");
+
+	if (C_is_empty(&test1)==YES) {
+		printf("is test1 empty? YES\n");
+	}
+	else {
+		printf("is test1 empty? NO\n");
+	}
 
 	printf("linked-list queue \"test1\": length: %d\n", C_get_queue_length(&test1));
 	printf("%s", C_dequeue(&test1));
