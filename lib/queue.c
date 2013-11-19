@@ -23,6 +23,19 @@ void C_destroy_queue(struct COMMON_QUEUE *q) {
 	}
 }
 
+int C_get_queue_length(struct COMMON_QUEUE *q) {
+	int count = 0;
+
+	struct QUEUE_NODE *temp;
+	temp = q->front;
+	while (temp!=q->rear) {
+		count += 1;
+		temp = temp->next;
+	}
+
+	return count;
+}
+
 int C_enqueue(struct COMMON_QUEUE *q, char *in) {
 	struct QUEUE_NODE *new_node;
 	new_node = malloc(sizeof(struct QUEUE_NODE));
@@ -55,6 +68,7 @@ char *C_dequeue(struct COMMON_QUEUE *q) {
 	else {
 		q->front->next = temp->next;
 	}
+
 	return out;
 }
 
