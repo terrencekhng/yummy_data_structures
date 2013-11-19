@@ -23,6 +23,19 @@ void C_destroy_queue(struct COMMON_QUEUE *q) {
 	}
 }
 
+void C_clear_queue(struct COMMON_QUEUE *q) {
+	struct QUEUE_NODE *temp1, *temp2;
+	q->rear = q->front;
+	temp1 = q->front->next;
+	q->front = NULL;
+	q->rear = NULL;
+	while (temp1) {
+		temp2 = temp1;
+		temp1 = temp1->next;
+		free(temp2);
+	}
+}
+
 int C_is_empty(struct COMMON_QUEUE *q) {
 	if (q->front->next==NULL) {
 		return YES;
